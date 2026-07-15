@@ -350,6 +350,7 @@ git merge banana
 
 Öncesi:
 ![](./images/fast-forward1.png)
+
 Sonrası:
 
 ![](./images/fast-forward2.png)
