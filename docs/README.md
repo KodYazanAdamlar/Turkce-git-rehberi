@@ -96,10 +96,10 @@ git rm --cached <dosya>
 
 ---
 
-Bu komut ile var olan bir dosyanın yerine bir başka dosyayı koyabilirsiniz.
+Bu komut ile bir dosyayı yeniden adlandırabilir veya başka bir konuma taşıyabilirsiniz.
 
 ```
-git mv <eski> <yeni>
+git mv <eski_konum_veya_isim> <yeni_konum_veya_isim>
 ```
 
 ---
@@ -116,11 +116,12 @@ Bu komut o an stage içerisine alınmamış dosyaların tamamı yerine belirli k
 
 $git add -p
 diff --git a/testcode.c b/testcode.c
-index d 446953..8 c 9 d 293 100644
+index d446953..8c9d293 100644
 --- a/testcode.c
 +++ b/testcode.c
-@@ -1,5 +1,9 @@
+@@ -1,7 +1,11 @@
  #include <stdio.h>
++#include <stdlib.h>
  
 +int toplama(int x, int y) {
 +    int toplam = x + y;
@@ -128,20 +129,25 @@ index d 446953..8 c 9 d 293 100644
 +}
  int main () {
      printf("hello, world");
-     printf("merhaba, dünya");
-(1/1) Bu parça hazırlansın mı [y,n,q,a,d,e,p,P,?]? 
+-    printf("merhaba, dünya");
++    printf("merhaba, dünya\n");
+ }
+(1/1) Bu parça hazırlansın mı [y,n,q,a,d,s,e,p,P,?]? 
 
 ```
 
-Bu komutu yazıncı aldığımız çıktı bu şekildedir. İşte seçeneklerin açıklamaları:
+Bu komutu yazınca aldığımız çıktı bu şekildedir. İşte seçeneklerin açıklamaları:
 
 - `y` → Bu kısmı stage et
 - `n` → Etme
 - `q` → Çık
 - `a` → Kalanların hepsini stage et
 - `d` → Kalanların hiçbirini stage etme
-- `s` → Bu parçayı daha küçük parçalara böl
+- `s` → Bu parçayı daha küçük parçalara böl (Sadece parça bölünebilir durumdaysa bu seçenek görünür)
 - `e` → Patch’i elle düzenle
+- `p` → Mevcut parçayı ekrana yazdır
+- `P` → Mevcut parçayı sayfalayıcı (pager) ile yazdır
+- `?` → Yardımı göster
 
 ---
 
@@ -382,6 +388,48 @@ Bu komutu kullanarak diğer daldan sadece istediğiniz commit’İ seçip ana da
 git cherry-pick <commit>
 ```
 
+#### 2.4.2 Birleşme Çakışmalarını (Merge Conflict) Çözmek
+
+`merge` veya `rebase` sırasında iki dal aynı dosyanın aynı satırını farklı şekilde değiştirdiyse, Git bunları tek başına birleştiremez ve bir çakışma (conflict) oluşur. Bu durumda Git işlemi durdurur ve çakışmayı sizin çözmenizi bekler.
+
+Çakışmalı dosyaları görmek için:
+
+```
+git status
+```
+
+Çakışmalı dosyayı açtığınızda Git, problemli bölgeyi şu şekilde işaretler:
+
+```
+<<<<<<< HEAD
+senin dalındaki hali
+=======
+diğer daldan gelen hali
+>>>>>>> banana
+```
+
+Dosyayı elle düzenleyip kodun son ve doğru hâlini bırakırsınız. Ardından Git’in eklediği bu üç işaretçi satırını (`<<<<<<<`, `=======`, `>>>>>>>`) silersiniz.
+
+Sonra sorunu çözdüğünüzü Git’e bildirmek için dosyayı tekrar stage edersiniz:
+
+```
+git add <dosya_adi>
+```
+
+Ve işlemi türüne göre tamamlarsınız:
+
+```
+git merge --continue    # merge yapıyorduysanız
+git rebase --continue   # rebase yapıyorduysanız
+```
+
+Eğer işlerin karıştığını düşünür ve işlemden tamamen vazgeçmek isterseniz:
+
+```
+git merge --abort       # merge’ü iptal eder
+git rebase --abort      # rebase’i iptal eder
+```
+
 ### 2.5 Repodaki Farklılıkları Görmek
 
 Bu işlemler başlıkta da görüldüğü üzere repo üzerine yeni eklenen değişiklikler ile öncekiler arasındaki farkları gösterir. Bu işlemler genellikle `diff` komutlarıyla yapılır. Bu komutlarda `diff` İngilizce **difference** yani **farklılık** kelimesinin kısaltmasıdır. Bu işlemlerin komutları aşağıdaki gibidir.
@@ -546,6 +594,24 @@ git stash pop
 ```
 
 Değişiklikleri geri getirir + stash’i siler
+
+Saklanan tüm stash’leri listelemek için.
+
+```
+git stash list
+```
+
+Belirli bir stash’i (listeden sırasına bakarak) seçip çalışma dizinine geri getirmek için.
+
+```
+git stash apply stash@{2}
+```
+
+En üstteki stash’i çalışma dizinine geri getirmeden tamamen silmek için.
+
+```
+git stash drop
+```
 
 ### 2.7 Commit Geçmişini Düzenlemek
 
@@ -778,6 +844,26 @@ git log --oneline # Bu komutu kullanarak satır satır görebilirsiniz.
 
 ---
 
+Bu komutu kullanarak tüm dalları, aralarındaki bağlantıları ve geçmişi tek bir grafik üzerinde görebilirsiniz.
+
+```
+git log --oneline --graph --all
+```
+
+Bu komutu kullanarak sadece son birkaç (örneğin 5) commit’i kısa ve özet halinde görebilirsiniz.
+
+```
+git log --oneline -5
+```
+
+Bu komutu kullanarak sadece belirli bir yazara ait commit’leri filtreleyebilirsiniz.
+
+```
+git log --author="İsim"
+```
+
+---
+
 Bu komutu kullanarak bir dosya üzerinde değişim yapılan tüm commitleri görebilirsiniz.
 
 ```
@@ -862,10 +948,13 @@ Burada ana projeyi bozmadan yeni bir çalışma alanı açabilirsiniz. Böylece 
 ```
 echo "login ekranı hazır" > login.txt
 git add login.txt
-git commit -m "login sistemi eklendi"git push origin login-sistemi
+git commit -m "login sistemi eklendi"
+git push origin login-sistemi
 ```
 
 Burada bir özellik ekleyebilirsiniz, bunu kaydedebilirsiniz ve GitHub’a gönderebilirsiniz. Sonra ekip bunu görebilir ve isterse ana projeye ekleyebilir.
+
+> **Not:** Bu özellik kaydedilip GitHub’a gönderildikten sonra, değişiklik genellikle GitHub üzerinde bir Pull Request (PR) açılarak ana projeye dahil edilir.
 
 ---
 
@@ -894,6 +983,8 @@ git merge hata-duzeltme
 ```
 
 Burada yapılan düzeltmeyi ana projeye dahil edebilirsiniz. Böylece hata resmi olarak çözülmüş olur.
+
+> **Not:** Hata düzeltilip `hata-duzeltme` dalı uzak sunucuya pushlandıktan sonra, bu değişiklik genellikle GitHub üzerinde bir Pull Request (PR) açılarak ana branch’e (main/master vb.) dahil edilir. Ekip kodu inceler ve onaylarsa birleştirme (merge) işlemi tamamlanır.
 
 ## 4. Kaynakça
 
