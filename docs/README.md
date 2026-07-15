@@ -261,6 +261,20 @@ git checkout -b <isim>
 
 ---
 
+Üzerinde olduğunuz dalı yeniden adlandırmak için:
+
+```
+git branch -m yeni-isim
+```
+
+İsmini yazarak seçtiğiniz dalı yeniden adlandırmak için:
+
+```
+git branch -m eski-isim yeni-isim
+```
+
+---
+
 Bu komut biraz daha istatistik çıkarmaya yönelik, bu komutu kullanarak en çok commit atılan dalı bulabilirsiniz.
 
 ```
