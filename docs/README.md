@@ -617,6 +617,8 @@ gh repo clone kullanıcı/repo
 
 Bu komutlar ile kolayca kopyalayabilirsiniz. **Ancak bu araç ayrı bir araçtır komutları farklıdır.**
 
+Bu aracın size getirdiği bir ekstra katkı daha vardır. Eğer projelerinizde Github kullanıyorsanız ve giriş için token veya SSH key gibi yolları kullanıyorsanız. Bunları manuel ayarlamak yerine Github CLI (gh) ile `gh auth login` komutunu kullanarak giriş yapabilirsiniz. Bu sayede Git işlemlerinizde gerekli kimlik doğrulaması otomatik olarak yönetilir ve token veya SSH key ile yaptığınız işlemleri yapmanızı sağlar. **(Bu araç Git aracından farklı bir araçtır. Bu yüzden bu rehberde bu araçtan detaylıca bahsetmeyeceğiz.)**
+
 #### 2.8.1 Uzak Konuma Veri Göndermek
 
 Bu komutu yerel deponuza uzak konum bağlayabilirsiniz.
@@ -895,6 +897,7 @@ Bu rehber için yukarıda bahsettiğim gibi en çok Git Cheatsheet ve Git Doküm
 - [Git Docs](https://git-scm.com/docs)
 - [Git (yazılım) - Vikipedi](https://tr.wikipedia.org/wiki/Git_\(yaz%C4%B1l%C4%B1m\))
 - [Linus Torvalds - Vikipedi](https://tr.wikipedia.org/wiki/Linus_Torvalds)
+- [Manual | GitHub CLI](https://cli.github.com/manual/)
 
 Görseller için yararlandığım kaynak ise yine Git Cheatsheet üzerinde bulunan görsellerdir.
 
