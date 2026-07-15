@@ -14,12 +14,45 @@ Bazı şeyleri gördüğümüze göre fazla sıkmamak adına artık başlayabili
 
 _**Önemli Not:**_ **Öncelikle bu rehber Git’in tüm özelliklerini barındırmaz içeriğinde en çok karşılaşılan senaryolar ve komutlar vardır. Git’in resmi sayfasında bulunan [Cheatsheet](https://git-scm.com/cheat-sheet) temel alınarak yazılmıştır.**
 
-Bu rehberi kullanmak için mantıken önce Git’in yüklü olması gerektir. Bunun için forumda daha önce açılmış bu konuya bakabilirsiniz:
+Şimdi Git'in kurulumuna geçelim.
 
-> https://btt.community/t/linux-icin-git-kurulumu-ve-temel-konfigurasyon-rehberi/9334
+Öncelikle terminali açın,
 
-Bu rehberi uyguladıktan sonra Git’i kurmuş ve kullanıma hazır olacaksınız.
+Ardından aşağıdaki komutları işletim sisteminize göre girin,
 
+**Debian / Ubuntu:**
+
+```
+sudo apt update && sudo apt install git
+```
+
+**Fedora / Asahi**
+
+```
+sudo dnf update && sudo dnf install git-all
+```
+
+**Arch**
+
+```
+sudo pacman -Sy git
+```
+
+**MacOS**
+
+```
+brew install git
+```
+
+Kurulum tamamlandığında şu komut ile kurulumu teyit edelim,
+
+```
+git --version
+```
+
+Eğer `git version <sürüm-numarası>` şeklinde bir çıktı görüyorsanız. Tebrikler, Git başarıyla kuruldu!
+
+Artık rehbere geçebiliriz.
 ## 2. Rehber
 
 Aşamalara geçmeden önce bahsetmek gereken bazı şeyler var. Bu aşamaları anlamak için Git’in bazı yapı özelliklerini anlamamız gerekiyor. Bunlar üç ana bölümden oluşur: çalışma dizini, staging area ve repository.
