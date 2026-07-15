@@ -893,6 +893,8 @@ Bu rehber için yukarıda bahsettiğim gibi en çok Git Cheatsheet ve Git Doküm
 
 - [Git Cheatsheet](https://git-scm.com/cheat-sheet)
 - [Git Docs](https://git-scm.com/docs)
+- [Git (yazılım) - Vikipedi](https://tr.wikipedia.org/wiki/Git_\(yaz%C4%B1l%C4%B1m\))
+- [Linus Torvalds - Vikipedi](https://tr.wikipedia.org/wiki/Linus_Torvalds)
 
 Görseller için yararlandığım kaynak ise yine Git Cheatsheet üzerinde bulunan görsellerdir.
 
