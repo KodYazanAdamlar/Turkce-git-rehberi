@@ -88,6 +88,12 @@ Bu komutu kullanarak dosyaları silebilirsiniz:
 git rm <dosya>
 ```
 
+Bu komutu kullanarak dosyaları Git takibinden çıkarabilir ancak bilgisayarınızda kalmasını sağlayabilirsiniz:
+
+```
+git rm --cached <dosya>
+```
+
 ---
 
 Bu komut ile var olan bir dosyanın yerine bir başka dosyayı koyabilirsiniz.
